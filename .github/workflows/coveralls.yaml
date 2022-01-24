@@ -1,4 +1,2 @@
-- uses: actions/checkout@v2
-- uses: shogo82148/actions-goveralls@v1
-  with:
-    path-to-profile: profile.cov
+- name: actions-goveralls
+  uses: shogo82148/actions-goveralls@v1.5.1
