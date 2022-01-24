@@ -26,3 +26,6 @@ jobs:
 
     - name: actions-goveralls
       uses: shogo82148/actions-goveralls@v1.5.1
+      with:
+      - github-token: ${{ secrets.COVERALLS_TOKEN }}
+      - path-to-profile: profile.cov
