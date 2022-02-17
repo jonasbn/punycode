@@ -4,10 +4,10 @@ A simple CLI tool to decode a punycode encoded string
 
 ## Usage
 
-Decoding a single string, meaning conversion from punycode to human readable text
+### Decoding a single string, meaning conversion from punycode to human readable text
 
 ```bash
-punydecode xn--blbrgrd-fxak7p
+punycode xn--blbrgrd-fxak7p
 ```
 
 Will emit
@@ -16,16 +16,40 @@ Will emit
 blåbærgrød
 ```
 
-As an alternative to provided arguments, you can pipe text into `punyencode`
+As an alternative to provided arguments, you can pipe text into `punycode`
 
 ```bash
-echo xn--blbrgrd-fxak7p | punydecode
+echo xn--blbrgrd-fxak7p | punycode
 ```
 
 Will emit
 
 ```text
 blåbærgrød
+```
+
+### Encoding a single string, meaning conversion from human readable text to punycode
+
+```bash
+punycode kødpålæg
+```
+
+Will emit
+
+```text
+xn--kdplg-orai3l
+```
+
+As an alternative to provided arguments, you can pipe text into `punycode`
+
+```bash
+echo kødpålæg | punycode
+```
+
+Will emit
+
+```text
+xn--kdplg-orai3l
 ```
 
 ## Installation
@@ -33,16 +57,18 @@ blåbærgrød
 Installation is easy using Go
 
 ```bash
-go install github.com/jonasbn/punydecode@latest
+go install github.com/jonasbn/punycode@latest
 ```
 
 If you want a particular version, please see [Go Modules Reference][MOD]
 
 ## Description
 
-If you want to encode into punycode, see [`punyencode`][punyencode].
+TODO
 
 ## Diagnostics
+
+TODO
 
 ## Exit Status
 
@@ -64,7 +90,7 @@ In addition to a few of the standard libraries
 
 ## Bugs and Limitations
 
-There a no known bugs, please see the GitHub repository [issues section](https://github.com/jonasbn/punydecode/issues) for a up to date listing.
+There a no known bugs, please see the GitHub repository [issues section](https://github.com/jonasbn/punycode/issues) for a up to date listing.
 
 ### Only support for Unicode
 
@@ -74,10 +100,10 @@ Please see [golang.org/x/net/idna][goidna] for details.
 
 ### Only a single argument
 
-`punydecode` only takes a single argument.
+`punycode` only takes a single argument.
 
 ```bash
-punydecode xn--blbrgrd-fxak7p
+punycode xn--blbrgrd-fxak7p
 ```
 
 ## Author
