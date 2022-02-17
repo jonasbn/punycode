@@ -1,0 +1,28 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
+    hooks:
+    -   id: check-merge-conflict
+    -   id: check-yaml
+        name: Check YAML
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+    -   id: no-commit-to-branch
+        name: "Do not commit directly to main"
+        args: [--branch, main]
+-   repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.31.1
+    hooks:
+    -   id: markdownlint
+        name: Check Markdown using Markdownlint
+-   repo: https://github.com/Bahjat/pre-commit-golang
+    rev: c3086eea8af86847dbdff2e46b85a5fe3c9d9656
+    hooks:
+      - id: go-fmt-import
+      - id: go-vet
+      - id: go-lint
+      - id: go-unit-tests
+      - id: gofumpt # requires github.com/mvdan/gofumpt
+      #- id: go-err-check # requires github.com/kisielk/errcheck
+      - id: go-static-check # install https://staticcheck.io/docs/
+      - id: golangci-lint # requires github.com/golangci/golangci-lint
