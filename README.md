@@ -1,5 +1,7 @@
 # punycode
 
+[![Coverage Status](https://coveralls.io/repos/github/jonasbn/punycode/badge.svg?branch=main)](https://coveralls.io/github/jonasbn/punycode?branch=main)
+
 A simple CLI tool to decode a punycode encoded string
 
 ## Usage
