@@ -1,2 +1,0 @@
-- name: actions-goveralls
-  uses: shogo82148/actions-goveralls@v1.5.1
