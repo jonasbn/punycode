@@ -31,7 +31,7 @@ func realMain() int {
 			return 2
 		}
 	} else {
-		argString = os.Args[1] // we only take a single parameter, the string to decode
+		argString = os.Args[1] // we only take a single parameter, the string to process
 	}
 
 	if argString != "" {
