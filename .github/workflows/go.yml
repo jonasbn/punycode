@@ -26,5 +26,5 @@ jobs:
     - name: Test
       run: go test -v ./...
 
-    - name: actions-goveralls
+    - name: Coverage Reporting
       uses: shogo82148/actions-goveralls@v1.5.1
