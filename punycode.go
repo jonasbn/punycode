@@ -1,3 +1,4 @@
+// punycode is a utility to encode and decode to and from punycode on the command line
 package main
 
 import (
@@ -10,10 +11,12 @@ import (
 	"golang.org/x/net/idna"
 )
 
+// main function is a wrapper on the realMain function and emits OS exit code based on wrapped function
 func main() {
 	os.Exit(realMain())
 }
 
+// realMain function wrapped so it is testable, can read arguments from CLI og STDING returns integer, which can be translated into OS exit code
 func realMain() int {
 	argsWithoutProg := os.Args[1:]
 
