@@ -1,7 +1,7 @@
 {
   "gomod": {
     "enabled": true
-  }
+  },
   "pre-commit": {
     "enabled": true
   }
