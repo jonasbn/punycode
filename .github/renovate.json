@@ -1,8 +1,6 @@
 {
-  "gomod": {
-    "enabled": true
-  },
-  "pre-commit": {
-    "enabled": true
-  }
+    "extends": [
+        "config:base"
+    ],
+    "enabledManagers": ["pre-commit", "gomod"]
 }
