@@ -106,6 +106,14 @@ Please see [golang.org/x/net/idna][goidna] for details.
 
 ```bash
 punycode xn--blbrgrd-fxak7p
+blåbærgrød
+```
+
+So providing more than one argument will only return the first argument
+
+```bash
+punycode xn--blbrgrd-fxak7p xn--kdplg-orai3l
+blåbærgrød
 ```
 
 ## Author
@@ -114,7 +122,7 @@ punycode xn--blbrgrd-fxak7p
 
 ## Motivation
 
-This utility was created, when in the process of learning Go. I have worked in the DNS and domain name business for a decade so it was only natural to work on something I know when learning Go.
+This utility was created, when in the process of learning Go. I have worked in the DNS and domain name business for a decade so it was only natural to work on something I _know_ when learning Go.
 
 This particular repository touched the following topics:
 
@@ -129,6 +137,7 @@ All of the above was covered in: [punyencode][punyencode] and [punydecode][punyd
 The `punycode` is a merge of the two, which then opened up for more things to learn.
 
 1. Using a regular expressions
+1. Capturing and testing output emitted to STDOUT
 
 See the resources and references below for resources on the above topics.
 
@@ -142,6 +151,8 @@ See the resources and references below for resources on the above topics.
 1. [Go By Example: Regular Expressions](https://gobyexample.com/regular-expressions)
 1. [yourbasic.org/golang: Read a file (stdin) line by line](https://yourbasic.org/golang/read-file-line-by-line/)
 1. [Blog post: Test the main function in Go by Johannes Malsam](https://mj-go.in/golang/test-the-main-function-in-go)
+1. [StackOverflow: "In Go, how do I capture stdout of a function into a string?"](https://stackoverflow.com/questions/10473800/in-go-how-do-i-capture-stdout-of-a-function-into-a-string)
+1. [StackOverflow: "How to test a function's output (stdout/stderr) in unit tests"](https://stackoverflow.com/questions/26804642/how-to-test-a-functions-output-stdout-stderr-in-unit-tests)
 
 ## License and Copyright
 
