@@ -1,4 +1,4 @@
-module gitbub.com/jonasbn/punycode
+module github.com/jonasbn/punycode
 
 go 1.17
 
