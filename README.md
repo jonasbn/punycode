@@ -120,6 +120,10 @@ blåbærgrød
 
 - jonasbn
 
+## Acknowledgements
+
+- @isviridov, bug fix contribution
+
 ## Motivation
 
 This utility was created, when in the process of learning Go. I have worked in the DNS and domain name business for a decade so it was only natural to work on something I _know_ when learning Go.
