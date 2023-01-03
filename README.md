@@ -161,7 +161,7 @@ See the resources and references below for resources on the above topics.
 
 ## License and Copyright
 
-Copyright Jonas Brømsø (jonasbn) 2022
+Copyright Jonas Brømsø (jonasbn) 2022-2023
 
 MIT License, see separate `LICENSE` file
 
