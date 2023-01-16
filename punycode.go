@@ -4,6 +4,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"regexp"
@@ -23,13 +24,11 @@ func realMain() int {
 	var argString string
 
 	if len(argsWithoutProg) <= 0 {
-		scanner := bufio.NewScanner(os.Stdin)
+		var err error
 
-		for scanner.Scan() {
-			argString = scanner.Text()
-		}
+		argString, err = readStdin(os.Stdin)
 
-		if err := scanner.Err(); err != nil {
+		if err != nil {
 			log.Println(err)
 			return 2
 		}
@@ -60,4 +59,20 @@ func realMain() int {
 	}
 
 	return 1
+}
+
+func readStdin(stdin io.Reader) (string, error) {
+	scanner := bufio.NewScanner(stdin)
+
+	var argString string
+
+	for scanner.Scan() {
+		argString = scanner.Text()
+	}
+
+	if err := scanner.Err(); err != nil {
+		return "", err
+	}
+
+	return argString, nil
 }
