@@ -2,7 +2,7 @@
 
 ## 2023-01-16 0.3.0 Maintenance release
 
-- Minor changes to the code to improve the test coverage. Test suite extended to accomodate testing of STDIN scenarios
+- Minor changes to the code to improve the test coverage. Test suite extended to accommodate testing of STDIN scenarios
 
 ## 2023-01-02 0.2.0 Maintenance release
 
