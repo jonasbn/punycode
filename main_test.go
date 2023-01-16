@@ -22,14 +22,14 @@ func TestArguments(T *testing.T) {
 		ExpectedOutput string
 	}{
 		{"no arguments", []string{""}, 1, ""},
-		{"single ASCII argument", []string{"test"}, 0, "test\n"},
-		{"single punycode encoded and lower cased argument", []string{"xn--kdplg-orai3l"}, 0, "kødpålæg\n"},
-		{"single punycode encoded and lower cased argument", []string{"kødpålæg"}, 0, "xn--kdplg-orai3l\n"},
-		{"single punycode encoded and lower cased argument", []string{"xn--MASSEDELGGELSESVBEN-5ebm60b"}, 0, "MASSEØDELÆGGELSESVÅBEN\n"},
-		{"single punycode encoded and lower cased argument", []string{"MASSEØDELÆGGELSESVÅBEN"}, 0, "xn--MASSEDELGGELSESVBEN-5ebm60b\n"},
-		{"single punycode encoded and lower cased argument", []string{"xn-MASSEDELGGELSESVBEN-5ebm60b"}, 0, "xn-MASSEDELGGELSESVBEN-5ebm60b\n"},
-		{"multiple punycode encoded and lower and upper cased arguments", []string{"xn--kdplg-orai3l", "xn--BLBRGRD-3pak7p"}, 0, "kødpålæg\n"},
-		{"multiple punycode encoded and lower and upper cased arguments", []string{"kødpålæg", "BLÅBÆRGRØD"}, 0, "xn--kdplg-orai3l\n"},
+		{"single ASCII string argument", []string{"test"}, 0, "test\n"},
+		{"single punycode encoded and lower cased string argument", []string{"xn--kdplg-orai3l"}, 0, "kødpålæg\n"},
+		{"single unencoded string and lower cased string argument", []string{"kødpålæg"}, 0, "xn--kdplg-orai3l\n"},
+		{"single punycode encoded and lower cased string argument", []string{"xn--MASSEDELGGELSESVBEN-5ebm60b"}, 0, "MASSEØDELÆGGELSESVÅBEN\n"},
+		{"single unencoded string and upper cased string argument", []string{"MASSEØDELÆGGELSESVÅBEN"}, 0, "xn--MASSEDELGGELSESVBEN-5ebm60b\n"},
+		{"single punycode encoded and upper cased string argument", []string{"xn-MASSEDELGGELSESVBEN-5ebm60b"}, 0, "xn-MASSEDELGGELSESVBEN-5ebm60b\n"},
+		{"multiple lower and upper cased punycode encoded string arguments", []string{"xn--kdplg-orai3l", "xn--BLBRGRD-3pak7p"}, 0, "kødpålæg\n"},
+		{"multiple lower and upper cased unencoded string arguments", []string{"kødpålæg", "BLÅBÆRGRØD"}, 0, "xn--kdplg-orai3l\n"},
 	}
 
 	for _, tc := range cases {
@@ -76,4 +76,34 @@ func captureOutput(f func()) string {
 	outputStr := <-outC
 
 	return outputStr
+}
+
+// REF:
+// https://petersouter.xyz/testing-and-mocking-stdin-in-golang/
+func TestStdin(t *testing.T) {
+
+	cases := []struct {
+		Name           string
+		Input          string
+		Err            error
+		ExpectedOutput string
+	}{
+		{"empty string", "", nil, ""},
+		{"single punycode encoded and lower cased input", "xn--kdplg-orai3l", nil, "xn--kdplg-orai3l"},
+		{"single multibyte string and lower cased input", "kødoplæg", nil, "kødoplæg"},
+		{"single punycode encoded and upper cased input", "xn-MASSEDELGGELSESVBEN-5ebm60b", nil, "xn-MASSEDELGGELSESVBEN-5ebm60b"},
+		{"single multibyte string and upper cased input", "MASSEØDELÆGGELSESVÅBEN", nil, "MASSEØDELÆGGELSESVÅBEN"},
+		{"single ASCII input", "test", nil, "test"},
+	}
+
+	for _, tc := range cases {
+
+		var stdin bytes.Buffer
+		stdin.Write([]byte(tc.Input))
+
+		result, err := readStdin(&stdin)
+
+		assert.NoError(t, err)
+		assert.Equal(t, tc.ExpectedOutput, result)
+	}
 }
