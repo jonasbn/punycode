@@ -30,6 +30,7 @@ func TestArguments(T *testing.T) {
 		{"single punycode encoded and upper cased string argument", []string{"xn-MASSEDELGGELSESVBEN-5ebm60b"}, 0, "xn-MASSEDELGGELSESVBEN-5ebm60b\n"},
 		{"multiple lower and upper cased punycode encoded string arguments", []string{"xn--kdplg-orai3l", "xn--BLBRGRD-3pak7p"}, 0, "kødpålæg\n"},
 		{"multiple lower and upper cased unencoded string arguments", []string{"kødpålæg", "BLÅBÆRGRØD"}, 0, "xn--kdplg-orai3l\n"},
+		{"stand alone punycode indicator", []string{"xn--"}, 0, "\n"},
 	}
 
 	for _, tc := range cases {
@@ -93,7 +94,7 @@ func TestStdin(t *testing.T) {
 		{"single multibyte string and lower cased input", "kødoplæg", nil, "kødoplæg"},
 		{"single punycode encoded and upper cased input", "xn-MASSEDELGGELSESVBEN-5ebm60b", nil, "xn-MASSEDELGGELSESVBEN-5ebm60b"},
 		{"single multibyte string and upper cased input", "MASSEØDELÆGGELSESVÅBEN", nil, "MASSEØDELÆGGELSESVÅBEN"},
-		{"single ASCII input", "test", nil, "test"},
+		{"single ASCII string input", "test", nil, "test"},
 	}
 
 	for _, tc := range cases {
