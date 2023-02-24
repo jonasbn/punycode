@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestArguments(T *testing.T) {
+func TestArguments(t *testing.T) {
 	// We manipuate the Args to set them up for the testcases
 	// After this test we restore the initial args
 	oldArgs := os.Args
@@ -36,7 +36,7 @@ func TestArguments(T *testing.T) {
 	for _, tc := range cases {
 		// we need a value to set Args[0] to cause flag begins parsing at Args[1]
 		os.Args = append([]string{tc.Name}, tc.Args...)
-		//actualExit := realMain()
+		// actualExit := realMain()
 		var actualExit = 0
 
 		actualOutput := captureOutput(func() {
@@ -44,13 +44,12 @@ func TestArguments(T *testing.T) {
 		})
 
 		if tc.ExpectedExit != actualExit {
-			T.Errorf("Wrong exit code for args: %v, expected: %v, got: %v",
+			t.Errorf("Wrong exit code for args: %v, expected: %v, got: %v",
 				tc.Args, tc.ExpectedExit, actualExit)
 		}
 
-		assert.Equal(T, tc.ExpectedOutput, actualOutput)
+		assert.Equal(t, tc.ExpectedOutput, actualOutput)
 	}
-
 }
 
 // REF:
