@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	zeroWidth "github.com/trubitsyn/go-zero-width"
 )
 
 func TestArguments(t *testing.T) {
@@ -31,6 +32,8 @@ func TestArguments(t *testing.T) {
 		{"multiple lower and upper cased punycode encoded string arguments", []string{"xn--kdplg-orai3l", "xn--BLBRGRD-3pak7p"}, 0, "kødpålæg\n"},
 		{"multiple lower and upper cased unencoded string arguments", []string{"kødpålæg", "BLÅBÆRGRØD"}, 0, "xn--kdplg-orai3l\n"},
 		{"stand alone punycode indicator", []string{"xn--"}, 0, "\n"},
+		{"challenge with zwj", []string{"xn--8k8hlfr9n"}, 0, zeroWidth.RemoveZeroWidthCharacters("🧑🏾‍🎨\n")},
+		{"challenge with zwj", []string{"🧑🏾‍🎨"}, 0, "xn--8k8hlfr9n\n"},
 	}
 
 	for _, tc := range cases {
@@ -94,6 +97,7 @@ func TestStdin(t *testing.T) {
 		{"single punycode encoded and upper cased input", "xn-MASSEDELGGELSESVBEN-5ebm60b", nil, "xn-MASSEDELGGELSESVBEN-5ebm60b"},
 		{"single multibyte string and upper cased input", "MASSEØDELÆGGELSESVÅBEN", nil, "MASSEØDELÆGGELSESVÅBEN"},
 		{"single ASCII string input", "test", nil, "test"},
+		{"challenge with zwj", "xn--8k8hlfr9n", nil, "🧑🏾‍🎨"},
 	}
 
 	for _, tc := range cases {

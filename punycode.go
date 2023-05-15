@@ -9,7 +9,8 @@ import (
 	"os"
 	"regexp"
 
-	"golang.org/x/net/idna"
+	zeroWidth "github.com/trubitsyn/go-zero-width"
+	"gitlab.com/golang-commonmark/puny"
 )
 
 // main function is a wrapper on the realMain function and emits OS exit code based on wrapped function
@@ -41,18 +42,19 @@ func realMain() int {
 		match, _ := regexp.MatchString("^xn--", argString)
 
 		if match {
-			unicodeString, err := idna.ToUnicode(argString)
-			if err == nil {
-				fmt.Printf("%s\n", unicodeString)
-				return 0
+			unicodeString := puny.ToUnicode(argString)
+
+			if zeroWidth.HasZeroWidthCharacters(unicodeString) {
+				fmt.Println(zeroWidth.RemoveZeroWidthJoiner(unicodeString))
+			} else {
+				fmt.Println(unicodeString)
 			}
+			return 0
 
 		} else {
-			punycodeString, err := idna.ToASCII(argString)
-			if err == nil {
-				fmt.Printf("%s\n", punycodeString)
-				return 0
-			}
+			punycodeString := puny.ToASCII(argString)
+			fmt.Println(punycodeString)
+			return 0
 		}
 
 		return 3
