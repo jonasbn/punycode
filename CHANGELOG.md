@@ -1,5 +1,9 @@
 # Change log for punycode
 
+## 2023-05-15 0.4.0 Maintenance release
+
+- Patch from @dependabot bumping dependency [x/net](https://github.com/x/net) from version 0.9.0 to 0.10.0, see PR [#38](https://github.com/jonasbn/punycode/pull/38)
+
 ## 2023-01-16 0.3.0 Maintenance release
 
 - Minor changes to the code to improve the test coverage. Test suite extended to accommodate testing of STDIN scenarios
