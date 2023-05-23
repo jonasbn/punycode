@@ -19,3 +19,4 @@ TODO
 yourbasic
 isviridov
 dependabot
+stretchr
