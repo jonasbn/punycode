@@ -1,5 +1,9 @@
 # Change log for punycode
 
+## 2023-06-16 0.6.0 Maintenance release
+
+- Patch from @dependabot bumping dependency [stretchr/testify](https://github.com/stretchr/testify) from version 1.8.3 to 1.8.4, see PR [#41](https://github.com/jonasbn/punycode/pull/41)
+
 ## 2023-05-23 0.5.0 Maintenance release
 
 - Patch from @dependabot bumping dependency [stretchr/testify](https://github.com/stretchr/testify) from version 1.8.2 to 1.8.3, see PR [#40](https://github.com/jonasbn/punycode/pull/40)
