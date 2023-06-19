@@ -1,5 +1,9 @@
 # Change log for punycode
 
+## 2023-06-19 0.7.0 Maintenance release
+
+- Patch from @dependabot bumping dependency [x/net](https://github.com/golang/net) from version 0.10.0 to 0.11.0, see PR [#42](https://github.com/jonasbn/punycode/pull/42)
+
 ## 2023-06-16 0.6.0 Maintenance release
 
 - Patch from @dependabot bumping dependency [stretchr/testify](https://github.com/stretchr/testify) from version 1.8.3 to 1.8.4, see PR [#41](https://github.com/jonasbn/punycode/pull/41)
