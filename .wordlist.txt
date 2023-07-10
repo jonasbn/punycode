@@ -20,3 +20,4 @@ yourbasic
 isviridov
 dependabot
 stretchr
+goreleaser
