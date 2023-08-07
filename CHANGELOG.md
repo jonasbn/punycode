@@ -1,5 +1,9 @@
 # Change log for punycode
 
+## 2023-08-07 0.10.0 Maintenance release
+
+- Patch from @dependabot bumping dependency [x/net](https://github.com/golang/net) from version 0.12.0 to 0.14.0, see PR [#44](https://github.com/jonasbn/punycode/pull/46)
+
 ## 2023-07-10 0.9.0 Maintenance release
 
 - Updated goreleaser configuration, I had missed that some options were deprecated
