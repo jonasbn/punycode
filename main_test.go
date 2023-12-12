@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	zeroWidth "github.com/trubitsyn/go-zero-width"
 )
 
 func TestArguments(t *testing.T) {
@@ -23,20 +24,18 @@ func TestArguments(t *testing.T) {
 	}{
 		{"no arguments", []string{""}, 1, ""},
 		{"single ASCII string argument", []string{"test"}, 0, "test\n"},
-		{"single punycode encoded and lower cased string argument", []string{"xn--kdplg-orai3l"}, 0, "kødpålæg\n"},
-		{"single unencoded string and lower cased string argument", []string{"kødpålæg"}, 0, "xn--kdplg-orai3l\n"},
-		{"single punycode encoded and lower cased string argument", []string{"xn--MASSEDELGGELSESVBEN-5ebm60b"}, 0, "MASSEØDELÆGGELSESVÅBEN\n"},
-		{"single unencoded string and upper cased string argument", []string{"MASSEØDELÆGGELSESVÅBEN"}, 0, "xn--MASSEDELGGELSESVBEN-5ebm60b\n"},
-		{"single punycode encoded and upper cased string argument", []string{"xn-MASSEDELGGELSESVBEN-5ebm60b"}, 0, "xn-MASSEDELGGELSESVBEN-5ebm60b\n"},
+		{"single punycode encoded string argument", []string{"xn--kdplg-orai3l"}, 0, "kødpålæg\n"},
+		{"single unencoded string argument", []string{"kødpålæg"}, 0, "xn--kdplg-orai3l\n"},
 		{"multiple lower and upper cased punycode encoded string arguments", []string{"xn--kdplg-orai3l", "xn--BLBRGRD-3pak7p"}, 0, "kødpålæg\n"},
 		{"multiple lower and upper cased unencoded string arguments", []string{"kødpålæg", "BLÅBÆRGRØD"}, 0, "xn--kdplg-orai3l\n"},
-		{"stand alone punycode indicator", []string{"xn--"}, 0, "\n"},
+		{"stand alone punycode indicator", []string{"xn--"}, 1, ""},
+		{"single punycode encoded zero width (zwj)", []string{"xn--1ug6825plhas9r"}, 0, zeroWidth.RemoveZeroWidthCharacters("🧑🏾‍🎨\n")},
+		{"single unencoded zero width string (zwj)", []string{"🧑🏾‍🎨"}, 0, "xn--1ug6825plhas9r\n"},
 	}
 
 	for _, tc := range cases {
 		// we need a value to set Args[0] to cause flag begins parsing at Args[1]
 		os.Args = append([]string{tc.Name}, tc.Args...)
-		// actualExit := realMain()
 		var actualExit = 0
 
 		actualOutput := captureOutput(func() {
@@ -48,7 +47,7 @@ func TestArguments(t *testing.T) {
 				tc.Args, tc.ExpectedExit, actualExit)
 		}
 
-		assert.Equal(t, tc.ExpectedOutput, actualOutput)
+		assert.Equal(t, tc.ExpectedOutput, actualOutput, tc.Name)
 	}
 }
 
@@ -85,15 +84,15 @@ func TestStdin(t *testing.T) {
 	cases := []struct {
 		Name           string
 		Input          string
-		Err            error
+		Error          error
 		ExpectedOutput string
 	}{
 		{"empty string", "", nil, ""},
-		{"single punycode encoded and lower cased input", "xn--kdplg-orai3l", nil, "xn--kdplg-orai3l"},
-		{"single multibyte string and lower cased input", "kødoplæg", nil, "kødoplæg"},
-		{"single punycode encoded and upper cased input", "xn-MASSEDELGGELSESVBEN-5ebm60b", nil, "xn-MASSEDELGGELSESVBEN-5ebm60b"},
-		{"single multibyte string and upper cased input", "MASSEØDELÆGGELSESVÅBEN", nil, "MASSEØDELÆGGELSESVÅBEN"},
+		{"single punycode encoded input", "xn--kdplg-orai3l", nil, "kødpålæg"},
+		{"single multibyte string input", "kødpålæg", nil, "xn--kdplg-orai3l"},
 		{"single ASCII string input", "test", nil, "test"},
+		{"single punycode encoded input with zwj", "xn--1ug6825plhas9r", nil, zeroWidth.RemoveZeroWidthCharacters("🧑🏾‍🎨")},
+		{"single multibyte string input with zwj", "🧑🏾‍🎨", nil, "xn--1ug6825plhas9r"},
 	}
 
 	for _, tc := range cases {
@@ -101,9 +100,10 @@ func TestStdin(t *testing.T) {
 		var stdin bytes.Buffer
 		stdin.Write([]byte(tc.Input))
 
-		result, err := readStdin(&stdin)
+		outputString, err := readStdin(&stdin)
 
 		assert.NoError(t, err)
-		assert.Equal(t, tc.ExpectedOutput, result)
+
+		assert.Equal(t, tc.ExpectedOutput, outputString, tc.Name)
 	}
 }

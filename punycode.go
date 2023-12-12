@@ -9,7 +9,8 @@ import (
 	"os"
 	"regexp"
 
-	"golang.org/x/net/idna"
+	zeroWidth "github.com/trubitsyn/go-zero-width"
+	"gitlab.com/golang-commonmark/puny"
 )
 
 // main function is a wrapper on the realMain function and emits OS exit code based on wrapped function
@@ -21,58 +22,69 @@ func main() {
 func realMain() int {
 	argsWithoutProg := os.Args[1:]
 
-	var argString string
+	var outputString string
 
 	if len(argsWithoutProg) <= 0 {
 		var err error
 
-		argString, err = readStdin(os.Stdin)
+		outputString, err = readStdin(os.Stdin)
 
 		if err != nil {
 			log.Println(err)
 			return 2
 		}
+
 	} else {
-		argString = os.Args[1] // we only take a single parameter, the string to process
+		outputString = readArgs()
 	}
 
-	if argString != "" {
-
-		match, _ := regexp.MatchString("^xn--", argString)
-
-		if match {
-			unicodeString, err := idna.ToUnicode(argString)
-			if err == nil {
-				fmt.Printf("%s\n", unicodeString)
-				return 0
-			}
-
-		} else {
-			punycodeString, err := idna.ToASCII(argString)
-			if err == nil {
-				fmt.Printf("%s\n", punycodeString)
-				return 0
-			}
-		}
-
-		return 3
+	if outputString != "" {
+		fmt.Printf("%s\n", outputString)
+		return 0
+	} else {
+		return 1
 	}
+}
 
-	return 1
+func readArgs() string {
+	inputString := os.Args[1] // we only take a single parameter, the string to process
+
+	return convertString(inputString)
 }
 
 func readStdin(stdin io.Reader) (string, error) {
 	scanner := bufio.NewScanner(stdin)
 
-	var argString string
+	var inputString string
 
 	for scanner.Scan() {
-		argString = scanner.Text()
+		inputString = scanner.Text()
 	}
 
 	if err := scanner.Err(); err != nil {
 		return "", err
 	}
 
-	return argString, nil
+	return convertString(inputString), nil
+}
+
+func convertString(inputString string) string {
+
+	var outputString string
+
+	match, _ := regexp.MatchString("^xn--", inputString)
+
+	if match {
+		unicodeString := puny.ToUnicode(inputString)
+
+		if zeroWidth.HasZeroWidthCharacters(unicodeString) {
+			outputString = zeroWidth.RemoveZeroWidthJoiner(unicodeString)
+		} else {
+			outputString = unicodeString
+		}
+	} else {
+		outputString = puny.ToASCII(inputString)
+	}
+
+	return outputString
 }

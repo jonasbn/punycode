@@ -81,8 +81,6 @@ TODO
 
 - `2` failure reading from STDIN
 
-- `3` encoding or decoding failed
-
 ## Dependencies
 
 This utility requires:
