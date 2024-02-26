@@ -1,6 +1,6 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.2.0
+    rev: v4.5.0
     hooks:
     -   id: check-merge-conflict
     -   id: check-yaml
@@ -11,12 +11,12 @@ repos:
         name: "Do not commit directly to main"
         args: [--branch, main]
 -   repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.31.1
+    rev: v0.39.0
     hooks:
     -   id: markdownlint
         name: Check Markdown using Markdownlint
 -   repo: https://github.com/Bahjat/pre-commit-golang
-    rev: v1.0.0
+    rev: v1.0.3
     hooks:
       - id: go-fmt-import
       - id: go-vet
