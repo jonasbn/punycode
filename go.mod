@@ -3,7 +3,7 @@ module github.com/jonasbn/punycode
 go 1.17
 
 require (
-	github.com/stretchr/testify v1.10.0
+	github.com/stretchr/testify v1.11.1
 	github.com/trubitsyn/go-zero-width v1.0.1
 	gitlab.com/golang-commonmark/puny v0.0.0-20191124015043-9f83538fa04f
 )
