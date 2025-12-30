@@ -12,6 +12,9 @@ import (
 	"golang.org/x/net/idna"
 )
 
+// punycodePrefix is a compiled regex pattern to match the punycode prefix "xn--"
+var punycodePrefix = regexp.MustCompile("^xn--")
+
 // main function is a wrapper on the realMain function and emits OS exit code based on wrapped function
 func main() {
 	os.Exit(realMain())
@@ -71,12 +74,7 @@ func convertString(inputString string) string {
 
 	var outputString string
 
-	match, err := regexp.MatchString("^xn--", inputString)
-
-	if err != nil {
-		log.Println(err)
-		return ""
-	}
+	match := punycodePrefix.MatchString(inputString)
 
 	var p *idna.Profile = idna.New()
 
@@ -97,6 +95,7 @@ func convertString(inputString string) string {
 		outputString = unicodeString
 
 	} else {
+		var err error
 		outputString, err = p.ToASCII(inputString)
 
 		if err != nil {
