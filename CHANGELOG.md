@@ -1,6 +1,6 @@
 # Change log for punycode
 
-## Unreleased
+## 2025-12-30 0.15.0 Maintenance release
 
 ### Breaking Changes
 
