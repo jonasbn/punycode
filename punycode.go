@@ -9,8 +9,7 @@ import (
 	"os"
 	"regexp"
 
-	zeroWidth "github.com/trubitsyn/go-zero-width"
-	"gitlab.com/golang-commonmark/puny"
+	"golang.org/x/net/idna"
 )
 
 // main function is a wrapper on the realMain function and emits OS exit code based on wrapped function
@@ -72,19 +71,42 @@ func convertString(inputString string) string {
 
 	var outputString string
 
-	match, _ := regexp.MatchString("^xn--", inputString)
+	match, err := regexp.MatchString("^xn--", inputString)
+
+	if err != nil {
+		log.Println(err)
+		return ""
+	}
+
+	var p *idna.Profile = idna.New()
+
+	/* DEBUG OUTPUT
+	fmt.Printf("Bytes: %v\n", []byte(inputString))
+	fmt.Printf("Runes: %U\n", []rune(inputString))
+	fmt.Printf("Length in bytes: %d, runes: %d\n", len(inputString), len([]rune(inputString)))
+	fmt.Printf(inputString + "\n")
+	*/
 
 	if match {
-		unicodeString := puny.ToUnicode(inputString)
+		unicodeString, _ := p.ToUnicode(inputString)
 
-		if zeroWidth.HasZeroWidthCharacters(unicodeString) {
-			outputString = zeroWidth.RemoveZeroWidthJoiner(unicodeString)
-		} else {
-			outputString = unicodeString
-		}
+		outputString = unicodeString
+
 	} else {
-		outputString = puny.ToASCII(inputString)
+		outputString, err = p.ToASCII(inputString)
+
+		if err != nil {
+			log.Println(err)
+			return ""
+		}
 	}
+
+	/* DEBUG OUTPUT
+	fmt.Printf("Bytes: %v\n", []byte(outputString))
+	fmt.Printf("Runes: %U\n", []rune(outputString))
+	fmt.Printf("Length in bytes: %d, runes: %d\n", len(outputString), len([]rune(outputString)))
+	fmt.Printf(outputString + "\n")
+	*/
 
 	return outputString
 }
