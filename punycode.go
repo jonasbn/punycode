@@ -12,6 +12,9 @@ import (
 	"golang.org/x/net/idna"
 )
 
+// profile is the IDNA profile used for punycode conversions, initialized once at package level
+var profile = idna.New()
+
 // main function is a wrapper on the realMain function and emits OS exit code based on wrapped function
 func main() {
 	os.Exit(realMain())
@@ -78,8 +81,6 @@ func convertString(inputString string) string {
 		return ""
 	}
 
-	var p *idna.Profile = idna.New()
-
 	/* DEBUG OUTPUT
 	fmt.Printf("Bytes: %v\n", []byte(inputString))
 	fmt.Printf("Runes: %U\n", []rune(inputString))
@@ -88,7 +89,7 @@ func convertString(inputString string) string {
 	*/
 
 	if match {
-		unicodeString, err := p.ToUnicode(inputString)
+		unicodeString, err := profile.ToUnicode(inputString)
 
 		if err != nil {
 			log.Println(err)
@@ -97,7 +98,7 @@ func convertString(inputString string) string {
 		outputString = unicodeString
 
 	} else {
-		outputString, err = p.ToASCII(inputString)
+		outputString, err = profile.ToASCII(inputString)
 
 		if err != nil {
 			log.Println(err)
