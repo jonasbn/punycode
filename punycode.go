@@ -79,18 +79,16 @@ func convertString(inputString string) string {
 
 	var outputString string
 	var err error
-	var unicodeString string
 
 	match := punycodePrefix.MatchString(inputString)
 
 	if match {
-		unicodeString, err = profile.ToUnicode(inputString)
+		outputString, err = profile.ToUnicode(inputString)
 
 		if err != nil {
 			log.Println(err)
 			return ""
 		}
-		outputString = unicodeString
 
 	} else {
 		outputString, err = profile.ToASCII(inputString)
