@@ -109,6 +109,6 @@ func TestStdin(t *testing.T) {
 
 		assert.Equal(t, tc.ExpectedOutput, outputString, tc.Name)
 
-		fmt.Printf("Expected output: >%s< and Actual output: >%s<\n", tc.ExpectedOutput, outputString)
+		t.Logf("Expected output: >%s< and Actual output: >%s<", tc.ExpectedOutput, outputString)
 	}
 }
