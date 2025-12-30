@@ -2,10 +2,8 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"io"
 	"os"
-	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -49,8 +47,6 @@ func TestArguments(t *testing.T) {
 		}
 
 		assert.Equal(t, tc.ExpectedOutput, actualOutput, tc.Name)
-
-		fmt.Printf("Expected output: >%s< and Actual output: >%s<\n", strings.TrimSuffix(tc.ExpectedOutput, "\n"), strings.TrimSuffix(actualOutput, "\n"))
 	}
 }
 
@@ -108,7 +104,5 @@ func TestStdin(t *testing.T) {
 		assert.NoError(t, err)
 
 		assert.Equal(t, tc.ExpectedOutput, outputString, tc.Name)
-
-		t.Logf("Expected output: >%s< and Actual output: >%s<", tc.ExpectedOutput, outputString)
 	}
 }

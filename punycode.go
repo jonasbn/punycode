@@ -83,13 +83,6 @@ func convertString(inputString string) string {
 
 	match := punycodePrefix.MatchString(inputString)
 
-	/* DEBUG OUTPUT
-	fmt.Printf("Bytes: %v\n", []byte(inputString))
-	fmt.Printf("Runes: %U\n", []rune(inputString))
-	fmt.Printf("Length in bytes: %d, runes: %d\n", len(inputString), len([]rune(inputString)))
-	fmt.Printf(inputString + "\n")
-	*/
-
 	if match {
 		unicodeString, err = profile.ToUnicode(inputString)
 
@@ -107,13 +100,6 @@ func convertString(inputString string) string {
 			return ""
 		}
 	}
-
-	/* DEBUG OUTPUT
-	fmt.Printf("Bytes: %v\n", []byte(outputString))
-	fmt.Printf("Runes: %U\n", []rune(outputString))
-	fmt.Printf("Length in bytes: %d, runes: %d\n", len(outputString), len([]rune(outputString)))
-	fmt.Printf(outputString + "\n")
-	*/
 
 	return outputString
 }
