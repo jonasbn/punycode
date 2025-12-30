@@ -88,8 +88,12 @@ func convertString(inputString string) string {
 	*/
 
 	if match {
-		unicodeString, _ := p.ToUnicode(inputString)
+		unicodeString, err := p.ToUnicode(inputString)
 
+		if err != nil {
+			log.Println(err)
+			return ""
+		}
 		outputString = unicodeString
 
 	} else {
