@@ -1,5 +1,18 @@
 # Change log for punycode
 
+## Unreleased
+
+### Breaking Changes
+
+- **Zero-width character handling**: The library now uses `golang.org/x/net/idna` instead of the previous `puny` library. As a result, zero-width joiners (ZWJ) in emoji sequences are now preserved during punycode decoding, which is the correct behavior according to Unicode and IDNA2008 standards. Previously, these characters were stripped using the `go-zero-width` library. Users relying on the previous behavior of removing zero-width characters will need to handle this themselves if needed. For example, decoding `xn--1ug6825plhas9r` now returns `🧑🏾‍🎨` (with ZWJ preserved) instead of the emoji without the ZWJ. See PR [#100](https://github.com/jonasbn/punycode/pull/100)
+
+### Changes
+
+- Migrated from `gitlab.com/golang-commonmark/puny` to `golang.org/x/net/idna` for IDNA operations
+- Removed dependency on `github.com/trubitsyn/go-zero-width`
+- Removed debug output sections from code and tests
+- Improved code organization with package-level variable initialization
+
 ## 2023-12-04 0.14.0 Maintenance release
 
 - Patch from @dependabot bumping dependency [x/net](https://github.com/golang/net) from version 0.18.0 to 0.19.0, see PR [#56](https://github.com/jonasbn/punycode/pull/56)

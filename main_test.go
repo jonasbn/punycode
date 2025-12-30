@@ -7,7 +7,6 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	zeroWidth "github.com/trubitsyn/go-zero-width"
 )
 
 func TestArguments(t *testing.T) {
@@ -29,7 +28,7 @@ func TestArguments(t *testing.T) {
 		{"multiple lower and upper cased punycode encoded string arguments", []string{"xn--kdplg-orai3l", "xn--BLBRGRD-3pak7p"}, 0, "kødpålæg\n"},
 		{"multiple lower and upper cased unencoded string arguments", []string{"kødpålæg", "BLÅBÆRGRØD"}, 0, "xn--kdplg-orai3l\n"},
 		{"stand alone punycode indicator", []string{"xn--"}, 1, ""},
-		{"single punycode encoded zero width (zwj)", []string{"xn--1ug6825plhas9r"}, 0, zeroWidth.RemoveZeroWidthCharacters("🧑🏾‍🎨\n")},
+		{"single punycode encoded zero width (zwj)", []string{"xn--1ug6825plhas9r"}, 0, "🧑🏾‍🎨\n"},
 		{"single unencoded zero width string (zwj)", []string{"🧑🏾‍🎨"}, 0, "xn--1ug6825plhas9r\n"},
 	}
 
@@ -91,7 +90,7 @@ func TestStdin(t *testing.T) {
 		{"single punycode encoded input", "xn--kdplg-orai3l", nil, "kødpålæg"},
 		{"single multibyte string input", "kødpålæg", nil, "xn--kdplg-orai3l"},
 		{"single ASCII string input", "test", nil, "test"},
-		{"single punycode encoded input with zwj", "xn--1ug6825plhas9r", nil, zeroWidth.RemoveZeroWidthCharacters("🧑🏾‍🎨")},
+		{"single punycode encoded input with zwj", "xn--1ug6825plhas9r", nil, "🧑🏾‍🎨"},
 		{"single multibyte string input with zwj", "🧑🏾‍🎨", nil, "xn--1ug6825plhas9r"},
 	}
 

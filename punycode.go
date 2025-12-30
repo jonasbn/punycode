@@ -9,9 +9,16 @@ import (
 	"os"
 	"regexp"
 
-	zeroWidth "github.com/trubitsyn/go-zero-width"
-	"gitlab.com/golang-commonmark/puny"
+	"golang.org/x/net/idna"
 )
+
+// punycodePrefix is a compiled regex pattern to match the punycode prefix "xn--"
+var punycodePrefix = regexp.MustCompile("^xn--")
+
+// profile is the IDNA profile used for punycode conversions, initialized once at package level.
+// Using idna.New() creates a profile with default options suitable for general-purpose
+// bidirectional conversion between Unicode and ASCII (punycode) representations.
+var profile = idna.New()
 
 // main function is a wrapper on the realMain function and emits OS exit code based on wrapped function
 func main() {
@@ -71,19 +78,25 @@ func readStdin(stdin io.Reader) (string, error) {
 func convertString(inputString string) string {
 
 	var outputString string
+	var err error
 
-	match, _ := regexp.MatchString("^xn--", inputString)
+	match := punycodePrefix.MatchString(inputString)
 
 	if match {
-		unicodeString := puny.ToUnicode(inputString)
+		outputString, err = profile.ToUnicode(inputString)
 
-		if zeroWidth.HasZeroWidthCharacters(unicodeString) {
-			outputString = zeroWidth.RemoveZeroWidthJoiner(unicodeString)
-		} else {
-			outputString = unicodeString
+		if err != nil {
+			log.Println(err)
+			return ""
 		}
+
 	} else {
-		outputString = puny.ToASCII(inputString)
+		outputString, err = profile.ToASCII(inputString)
+
+		if err != nil {
+			log.Println(err)
+			return ""
+		}
 	}
 
 	return outputString
