@@ -14,6 +14,7 @@ import (
 
 // punycodePrefix is a compiled regex pattern to match the punycode prefix "xn--"
 var punycodePrefix = regexp.MustCompile("^xn--")
+
 // profile is the IDNA profile used for punycode conversions, initialized once at package level.
 // Using idna.New() creates a profile with default options suitable for general-purpose
 // bidirectional conversion between Unicode and ASCII (punycode) representations.
@@ -77,6 +78,8 @@ func readStdin(stdin io.Reader) (string, error) {
 func convertString(inputString string) string {
 
 	var outputString string
+	var err error
+	var unicodeString string
 
 	match := punycodePrefix.MatchString(inputString)
 
@@ -88,7 +91,7 @@ func convertString(inputString string) string {
 	*/
 
 	if match {
-		unicodeString, err := profile.ToUnicode(inputString)
+		unicodeString, err = profile.ToUnicode(inputString)
 
 		if err != nil {
 			log.Println(err)
