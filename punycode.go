@@ -12,6 +12,8 @@ import (
 	"golang.org/x/net/idna"
 )
 
+// punycodePrefix is a compiled regex pattern to match the punycode prefix "xn--"
+var punycodePrefix = regexp.MustCompile("^xn--")
 // profile is the IDNA profile used for punycode conversions, initialized once at package level.
 // Using idna.New() creates a profile with default options suitable for general-purpose
 // bidirectional conversion between Unicode and ASCII (punycode) representations.
@@ -76,12 +78,7 @@ func convertString(inputString string) string {
 
 	var outputString string
 
-	match, err := regexp.MatchString("^xn--", inputString)
-
-	if err != nil {
-		log.Println(err)
-		return ""
-	}
+	match := punycodePrefix.MatchString(inputString)
 
 	/* DEBUG OUTPUT
 	fmt.Printf("Bytes: %v\n", []byte(inputString))
