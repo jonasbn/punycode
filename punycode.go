@@ -12,7 +12,9 @@ import (
 	"golang.org/x/net/idna"
 )
 
-// profile is the IDNA profile used for punycode conversions, initialized once at package level
+// profile is the IDNA profile used for punycode conversions, initialized once at package level.
+// Using idna.New() creates a profile with default options suitable for general-purpose
+// bidirectional conversion between Unicode and ASCII (punycode) representations.
 var profile = idna.New()
 
 // main function is a wrapper on the realMain function and emits OS exit code based on wrapped function
