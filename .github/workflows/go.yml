@@ -13,10 +13,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6.0.2
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
     - name: Set up Go
-      uses: actions/setup-go@v6.2.0
+      uses: actions/setup-go@7a3fe6cf4cb3a834922a1244abfce67bcef6a0c5 # v6.2.0
       with:
         go-version: 1.25
 
@@ -27,4 +27,4 @@ jobs:
       run: go test -v ./...
 
     - name: Coverage Reporting
-      uses: shogo82148/actions-goveralls@v1.10.0
+      uses: shogo82148/actions-goveralls@a29438082c2bab0feeb125f69f71b97fdcbfe517 # v1.10.0
