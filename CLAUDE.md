@@ -34,7 +34,7 @@ This is a small, single-package CLI tool (`main` package) with production code i
 
 **Conversion logic:** `convertString()` uses a regex (`^xn--`) to detect punycode input. Punycode strings are decoded using `golang.org/x/net/idna`; Unicode strings are encoded to punycode using the same package.
 
-**Exit codes:** 0 = success, 1 = no input provided, 2 = STDIN read error.
+**Exit codes:** 0 = success, 1 = empty output / invalid input / no input, 2 = STDIN read error.
 
 ## Testing Approach
 
