@@ -4,6 +4,13 @@ on:
   push:
     paths:
       - '**/*.md'
+      - '.github/spellcheck.yml'
+      - '.github/workflows/spellcheck.yml'
+  pull_request:
+    paths:
+      - '**/*.md'
+      - '.github/spellcheck.yml'
+      - '.github/workflows/spellcheck.yml'
 
 jobs:
   build:
