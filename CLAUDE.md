@@ -30,7 +30,7 @@ This is a small, single-package CLI tool (`main` package) with production code i
 
 **Entry point pattern:** `main()` calls `realMain()` and passes the exit code to `os.Exit()`. This indirection makes the real logic testable — tests call `realMain()` directly rather than `main()`.
 
-**Input handling:** `realMain()` checks whether `os.Args` has arguments (uses first arg via `readArgs()`) or falls back to reading STDIN line-by-line (`readStdin()`). Multiple arguments are silently ignored — only the first is used.
+**Input handling:** `realMain()` checks whether `os.Args` has arguments (uses first arg via `readArgs()`) or falls back to `readStdin()`, which reads STDIN line-by-line but uses only the final line read. Multiple arguments are silently ignored — only the first is used.
 
 **Conversion logic:** `convertString()` uses a regex (`^xn--`) to detect punycode input. Punycode strings are decoded using `golang.org/x/net/idna`; Unicode strings are encoded to punycode using the same package.
 
