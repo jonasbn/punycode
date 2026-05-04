@@ -22,3 +22,17 @@ isviridov
 dependabot
 stretchr
 goreleaser
+md
+ai
+claude
+TestArguments
+TestStdin
+gofumpt
+goimports
+golangci
+arg
+Pre
+pre
+whitespace
+GoReleaser
+macOS
