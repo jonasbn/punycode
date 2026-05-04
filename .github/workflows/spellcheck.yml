@@ -3,7 +3,7 @@ name: Spellcheck Action
 on:
   push:
     paths:
-    - '**.md'
+      - '**/*.md'
 
 jobs:
   build:
