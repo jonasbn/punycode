@@ -29,4 +29,4 @@ jobs:
 
     - name: Coverage Reporting
       uses: shogo82148/actions-goveralls@9606dbc5ac5cf888a0e9ef901515c3cd516a2790 # v1.11.0
-      continue-on-error: true
+      continue-on-error: ${{ github.event_name != 'push' }}
