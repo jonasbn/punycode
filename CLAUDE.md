@@ -51,4 +51,4 @@ The project uses pre-commit hooks (`.pre-commit-config.yaml`). Go-focused hooks 
 
 ## Releases
 
-Releases are automated via GoReleaser (`.goreleaser.yml`) triggered by `v*` tags. Binaries are built for Linux, Windows, and macOS with `CGO_ENABLED=0`. The release workflow requires a `GITHUB_TOKEN` secret.
+Releases are automated via GoReleaser (`.goreleaser.yml`) triggered by `v*` tags. Binaries are built for Linux, Windows, and macOS with `CGO_ENABLED=0`. The release workflow uses the built-in `GITHUB_TOKEN`; ensure workflow permissions allow creating releases.
