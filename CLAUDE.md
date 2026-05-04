@@ -47,7 +47,7 @@ Tests use `captureOutput()` (redirects `os.Stdout` to a pipe) to capture what th
 
 ## Pre-commit Hooks
 
-The project uses pre-commit hooks (`.pre-commit-config.yaml`). Hooks run `go-fmt-import`, `gofumpt`, `go-vet`, `go-lint`, `go-unit-tests`, `go-static-check`, and `golangci-lint`. Run `pre-commit install` once after cloning to enable them.
+The project uses pre-commit hooks (`.pre-commit-config.yaml`). Go-focused hooks run `go-fmt-import`, `gofumpt`, `go-vet`, `go-lint`, `go-unit-tests`, `go-static-check`, and `golangci-lint`; the configuration also includes general `pre-commit-hooks` checks (for example, trailing whitespace and end-of-file fixes) and `markdownlint`. Run `pre-commit install` once after cloning to enable them.
 
 ## Releases
 
