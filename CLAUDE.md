@@ -26,7 +26,7 @@ go vet ./...
 
 ## Architecture
 
-This is a small, single-package CLI tool (`main` package, one source file: `punycode.go`).
+This is a small, single-package CLI tool (`main` package) with production code in `punycode.go` and tests in `main_test.go`.
 
 **Entry point pattern:** `main()` calls `realMain()` and passes the exit code to `os.Exit()`. This indirection makes the real logic testable — tests call `realMain()` directly rather than `main()`.
 
