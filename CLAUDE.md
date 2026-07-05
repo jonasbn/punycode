@@ -49,6 +49,20 @@ Tests use `captureOutput()` (redirects `os.Stdout` to a pipe) to capture what th
 
 The project uses pre-commit hooks (`.pre-commit-config.yaml`). Go-focused hooks run `go-fmt-import`, `gofumpt`, `go-vet`, `go-lint`, `go-unit-tests`, `go-static-check`, and `golangci-lint`; the configuration also includes general `pre-commit-hooks` checks (for example, trailing whitespace and end-of-file fixes) and `markdownlint`. Run `pre-commit install` once after cloning to enable them.
 
+Direct commits to `main` are blocked by the `no-commit-to-branch` hook — work on a feature branch instead.
+
+**Gotchas:**
+
+- `golangci-lint` pre-commit hook is disabled (Bahjat hook exits 1 on "0 issues." — a stdout capture bug). Run manually: `golangci-lint run`
+- `staticcheck` must match or exceed the Go toolchain version; update with `go install honnef.co/go/tools/cmd/staticcheck@latest` if it fails with a version mismatch.
+- New technical terms in `.md` files must be added to `.github/spellcheck-wordlist.txt` or the spellcheck CI job will fail.
+
 ## Releases
 
 Releases are automated via GoReleaser (`.goreleaser.yml`) triggered by `v*` tags. Binaries are built for Linux, Windows, and macOS with `CGO_ENABLED=0`. The release workflow uses the built-in `GITHUB_TOKEN`; ensure workflow permissions allow creating releases.
+
+Branch protection requires 1 approving review. All PRs are created under the repo owner's profile and cannot be self-approved — use `gh pr merge <N> --squash --delete-branch --admin` to merge.
+
+## Backlog
+
+`docs/TODO.md` tracks future improvements (dependabot tuning, tooling, CI). Check it before starting maintenance work.
