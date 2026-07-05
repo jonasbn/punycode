@@ -1,5 +1,23 @@
 # Change log for punycode
 
+## 2026-07-05 0.18.0 Maintenance release
+
+- CI: Added dependabot groups (major-updates + minor-and-patch for github-actions; minor-and-patch for gomod) and 7-day cooldown
+- CI: Switched workflows to `go-version-file: go.mod`; pinned to stable Go
+- CI: Updated GitHub Actions: actions/checkout to 7.0.0, actions/setup-go to 6.5.0, github/codeql-action to v4.36.3, goreleaser/goreleaser-action to 7.2.3, spellcheck to 0.63.0
+- Dependency: `golang.org/x/net` bumped from 0.51.0 to 0.56.0
+- Added CLAUDE.md with codebase guidance for Claude Code
+- Added `docs/TODO.md` with dependabot improvement backlog
+- Fixed: pre-commit lint and format issues in `main_test.go` and `punycode.go`
+- Removed CodeSee integration (service discontinued)
+
+## 2026-03-02 0.17.0 Maintenance release
+
+- Dependency: `golang.org/x/net` bumped to 0.51.0
+- Go version updated to 1.25.7
+- GitHub Actions pinned to commit SHAs for supply-chain security
+- CI: Updated github/codeql-action to v4.32.5, actions/setup-go to 6.3.0, goreleaser/goreleaser-action to 7.0.0, spellcheck to 0.59.0, actions/checkout to 6.0.2, goveralls to 1.11.0
+
 ## 2025-12-30 0.16.0 Maintenance release
 
 - Updated to outdated automated release process configuration

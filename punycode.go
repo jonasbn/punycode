@@ -35,7 +35,6 @@ func realMain() int {
 		var err error
 
 		outputString, err = readStdin(os.Stdin)
-
 		if err != nil {
 			log.Println(err)
 			return 2
@@ -76,7 +75,6 @@ func readStdin(stdin io.Reader) (string, error) {
 }
 
 func convertString(inputString string) string {
-
 	var outputString string
 	var err error
 
@@ -84,7 +82,6 @@ func convertString(inputString string) string {
 
 	if match {
 		outputString, err = profile.ToUnicode(inputString)
-
 		if err != nil {
 			log.Println(err)
 			return ""
@@ -92,7 +89,6 @@ func convertString(inputString string) string {
 
 	} else {
 		outputString, err = profile.ToASCII(inputString)
-
 		if err != nil {
 			log.Println(err)
 			return ""
