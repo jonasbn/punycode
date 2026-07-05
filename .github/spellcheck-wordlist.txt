@@ -44,5 +44,5 @@ cooldown
 UI
 PRs
 assignees
-github
 CVE
+deps
