@@ -2,6 +2,8 @@ name: Spellcheck Action
 
 on:
   push:
+    branches:
+      - main
     paths:
       - '**/*.md'
       - '.github/spellcheck.yml'
