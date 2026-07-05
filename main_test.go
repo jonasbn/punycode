@@ -35,7 +35,7 @@ func TestArguments(t *testing.T) {
 	for _, tc := range cases {
 		// we need a value to set Args[0] to cause flag begins parsing at Args[1]
 		os.Args = append([]string{tc.Name}, tc.Args...)
-		var actualExit = 0
+		actualExit := 0
 
 		actualOutput := captureOutput(func() {
 			actualExit = realMain()
@@ -54,7 +54,6 @@ func TestArguments(t *testing.T) {
 // https://stackoverflow.com/questions/10473800/in-go-how-do-i-capture-stdout-of-a-function-into-a-string
 // https://stackoverflow.com/questions/26804642/how-to-test-a-functions-output-stdout-stderr-in-unit-tests
 func captureOutput(f func()) string {
-
 	originalStdout := os.Stdout // keep backup of the original stdout
 	r, w, _ := os.Pipe()
 	os.Stdout = w
@@ -65,11 +64,11 @@ func captureOutput(f func()) string {
 	// copy the output in a separate goroutine so printing will not block indefinitely
 	go func() {
 		var buf bytes.Buffer
-		io.Copy(&buf, r)
+		_, _ = io.Copy(&buf, r)
 		outC <- buf.String()
 	}()
 
-	w.Close()
+	_ = w.Close()
 	os.Stdout = originalStdout // restoring the original stdout
 	outputStr := <-outC
 
@@ -79,7 +78,6 @@ func captureOutput(f func()) string {
 // REF:
 // https://petersouter.xyz/testing-and-mocking-stdin-in-golang/
 func TestStdin(t *testing.T) {
-
 	cases := []struct {
 		Name           string
 		Input          string
