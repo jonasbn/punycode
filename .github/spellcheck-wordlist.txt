@@ -39,3 +39,13 @@ pre
 whitespace
 GoReleaser
 macOS
+dep
+github
+gomod
+Cooldown
+cooldown
+UI
+PRs
+assignees
+CVE
+deps
