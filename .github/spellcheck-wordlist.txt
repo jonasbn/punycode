@@ -1,5 +1,7 @@
 Brømsø
 CLI
+CODEOWNERS
+CVEs
 distributable
 DNS
 golang
@@ -11,6 +13,7 @@ punycode
 Punycode
 punydecode
 punyencode
+SLO
 StackOverflow
 stderr
 stdin

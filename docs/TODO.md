@@ -7,7 +7,7 @@ Each item can be a standalone PR once bandwidth allows.
 
 ### Group tuning
 
-- [ ] **Split gomod major bumps explicitly** — Add a `major-updates` group for `gomod` (mirroring the github-actions pattern) if Go modules start shipping coordinated major releases (e.g. `golang.org/x/...` family). Not needed today since the `x/net` module is the only dep, but worth revisiting when the dependency count grows.
+- [ ] **Split gomod major bumps explicitly** — Add a `major-updates` group for `gomod` (mirroring the github-actions pattern) if Go modules start shipping coordinated major releases (e.g. `golang.org/x/...` family). Not needed today since the `x/net` module is the only production dep, but worth revisiting when the dependency count grows.
 - [ ] **Per-family grouping for gomod** — If indirect deps start appearing, consider naming groups after import-path prefixes (`golang.org/x/*`, `github.com/stretchr/*`) so security advisories for one family don't block unrelated bumps.
 
 ### Cooldown tuning
