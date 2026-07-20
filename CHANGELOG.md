@@ -1,5 +1,12 @@
 # Change log for punycode
 
+## 2026-07-20 0.19.0 Maintenance release
+
+- Dependency: `golang.org/x/net` bumped from 0.56.0 to 0.57.0, see PR [#172](https://github.com/jonasbn/punycode/pull/172)
+  - Includes an `idna` security fix rejecting all-ASCII `xn--` labels consistently across all Go versions (previously version-dependent)
+- Docs: Updated CLAUDE.md with session learnings, see PR [#170](https://github.com/jonasbn/punycode/pull/170)
+- Chore: Updated local spellcheck dictionary, see PR [#171](https://github.com/jonasbn/punycode/pull/171)
+
 ## 2026-07-05 0.18.0 Maintenance release
 
 - CI: Added dependabot groups (major-updates + minor-and-patch for github-actions; minor-and-patch for gomod) and 7-day cooldown
