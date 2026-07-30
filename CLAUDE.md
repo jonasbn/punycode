@@ -61,7 +61,7 @@ Direct commits to `main` are blocked by the `no-commit-to-branch` hook — work 
 
 Releases are automated via GoReleaser (`.goreleaser.yml`) triggered by `v*` tags. Binaries are built for Linux, Windows, and macOS with `CGO_ENABLED=0`. The release workflow uses the built-in `GITHUB_TOKEN`; ensure workflow permissions allow creating releases.
 
-Branch protection requires 1 approving review. All PRs are created under the repo owner's profile and cannot be self-approved — use `gh pr merge <N> --squash --delete-branch --admin` to merge.
+Branch protection requires the `build`, `Analyze (go)`, and `zizmor` status checks to pass (no approving review required, since this is a one-maintainer repo) — merge with `gh pr merge <N> --squash --delete-branch` once checks are green.
 
 ## Backlog
 
