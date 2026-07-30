@@ -56,12 +56,16 @@ Direct commits to `main` are blocked by the `no-commit-to-branch` hook — work 
 - `golangci-lint` pre-commit hook is disabled (Bahjat hook exits 1 on "0 issues." — a stdout capture bug). Run manually: `golangci-lint run`
 - `staticcheck` must match or exceed the Go toolchain version; update with `go install honnef.co/go/tools/cmd/staticcheck@latest` if it fails with a version mismatch.
 - New technical terms in `.md` files must be added to `.github/spellcheck-wordlist.txt` or the spellcheck CI job will fail.
+- Don't shorten `go 1.25.0` in go.mod to `go 1.25` — `golang.org/x/net`/`golang.org/x/text` require patch-precision, and `go mod tidy` reverts it every time.
+- Don't add `Spellcheck` to required status checks — it's path-filtered to `**/*.md` changes, so on non-Markdown PRs it never runs and blocks merge forever.
 
 ## Releases
 
 Releases are automated via GoReleaser (`.goreleaser.yml`) triggered by `v*` tags. Binaries are built for Linux, Windows, and macOS with `CGO_ENABLED=0`. The release workflow uses the built-in `GITHUB_TOKEN`; ensure workflow permissions allow creating releases.
 
 Branch protection requires the `build`, `Analyze (go)`, and `zizmor` status checks to pass (no approving review required, since this is a one-maintainer repo) — merge with `gh pr merge <N> --squash --delete-branch` once checks are green.
+
+`zizmor.yml` statically analyzes workflow files for security issues (excessive permissions, missing `persist-credentials: false`, cache poisoning); findings surface as SARIF in Security > Code scanning, not as job failures. CodeQL and zizmor each post two same-named checks (one from `github-actions`, one from `github-advanced-security`) — use `app_id` in required-status-check configs to target the workflow-job one.
 
 ## Backlog
 
