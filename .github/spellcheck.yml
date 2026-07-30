@@ -14,5 +14,5 @@ matrix:
       - code
       - pre
   sources:
-  - '**/*.md|!docs/superpowers/**/*.md'
+  - '**/*.md|!docs/superpowers/**/*.md|!CLAUDE.md|!.claude/**/*.md'
   default_encoding: utf-8
