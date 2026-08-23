@@ -29,7 +29,7 @@ jobs:
       with:
         persist-credentials: false
 
-    - uses: rojopolis/spellcheck-github-actions@fcc5ca8351f0590978f238d6babfe3f28afc361f # 0.65.0
+    - uses: rojopolis/spellcheck-github-actions@c1934c57e61c734261d7905b525486b12f8eb670 # 0.66.0
       name: Spellcheck
       with:
         config_path: .github/spellcheck.yml
